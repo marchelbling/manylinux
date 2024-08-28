@@ -33,7 +33,7 @@ pushd Python-${CPYTHON_VERSION}
 PREFIX="/opt/_internal/cpython-${CPYTHON_VERSION}"
 mkdir -p ${PREFIX}/lib
 CFLAGS_EXTRA=""
-CONFIGURE_ARGS="--disable-shared --with-ensurepip=no"
+CONFIGURE_ARGS="--enable-shared --with-ensurepip=no"
 
 if [ "${2:-}" == "nogil" ]; then
 	PREFIX="${PREFIX}-nogil"
@@ -63,7 +63,7 @@ fi
 # do not change the default for user built extension (yet?)
 ./configure \
 	CFLAGS_NODIST="${MANYLINUX_CFLAGS} ${MANYLINUX_CPPFLAGS} ${CFLAGS_EXTRA}" \
-	LDFLAGS_NODIST="${MANYLINUX_LDFLAGS}" \
+	LDFLAGS_NODIST="${MANYLINUX_LDFLAGS} -Wl,-rpath=${PREFIX}/lib" \
 	--prefix=${PREFIX} ${CONFIGURE_ARGS} > /dev/null
 make > /dev/null
 make install > /dev/null

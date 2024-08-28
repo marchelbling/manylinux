@@ -9,12 +9,12 @@ MY_DIR=$(dirname "${BASH_SOURCE[0]}")
 # Get build utilities
 source $MY_DIR/build_utils.sh
 
-# most people don't need libpython*.a, and they're many megabytes.
-# compress them all together for best efficiency
-pushd /opt/_internal
-XZ_OPT=-9e tar -cJf static-libs-for-embedding-only.tar.xz cpython-*/lib/libpython*.a
-popd
-find /opt/_internal -name '*.a' -print0 | xargs -0 rm -f
+# # most people don't need libpython*.a, and they're many megabytes.
+# # compress them all together for best efficiency
+# pushd /opt/_internal
+# XZ_OPT=-9e tar -cJf static-libs-for-embedding-only.tar.xz cpython-*/lib/libpython*.a
+# popd
+# find /opt/_internal -name '*.a' -print0 | xargs -0 rm -f
 
 # disable some pip warnings
 export PIP_ROOT_USER_ACTION=ignore
